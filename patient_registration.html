@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient registation | COPD Detect</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563eb",
+                        "medical-blue": "#0f172a",
+                        "light-gray": "#f1f5f9",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply text-slate-800 bg-light-gray;
+            }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .form-input-elegant {
+            @apply w-full px-4 py-2.5 rounded-md border border-slate-200 focus:ring-1 focus:ring-primary focus:border-primary transition-all bg-white outline-none placeholder:text-slate-400 text-sm;
+        }
+        .section-label {
+            @apply flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest mb-4 border-b border-slate-100 pb-2;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col font-sans">
+<header class="bg-white/80 backdrop-blur-md border-b border-slate-200 px-6 lg:px-12 py-4 sticky top-0 z-50">
+<div class="max-w-[1400px] mx-auto flex items-center justify-between">
+<div class="flex items-center gap-2">
+<h1 class="text-medical-blue text-xl font-bold tracking-tight">COPD<span class="font-light">Detect</span></h1>
+</div>
+<div class="flex items-center gap-8">
+<nav class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+<a class="hover:text-primary transition-colors" href="#">Patient Porfile</a>
+<a class="hover:text-primary transition-colors" href="#">Support</a>
+</nav>
+<div class="h-4 w-px bg-slate-200 hidden md:block"></div>
+<a class="text-sm font-semibold text-primary hover:text-blue-700 transition-colors" href="#">Login</a>
+</div>
+</div>
+</header>
+<main class="flex-grow flex items-center justify-center p-6 lg:p-12">
+<div class="max-w-[1200px] w-full bg-white rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] overflow-hidden flex flex-col lg:flex-row min-h-[850px] border border-slate-100">
+<div class="lg:w-1/3 relative hidden lg:block overflow-hidden">
+<img alt="Medical professional with patient data" class="absolute inset-0 w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-pcXrsYLWIpiyP08YCtGdMjKHcqjVceG12PkvEXIZGkPR-YEnu6gpk2qhZNGSzX5QMiYKx634kjkTUGRxN7wBmQG7KZavkIxh5Bb5LfAglhpFqyMoKousr7i3QG3O8l9rm_qDPfIVEOC5juqmJc2zs11o9eFuaYIeoJDxmLgXaMZ6UeY5xCnXVsPWmVb1GEjhFHlHu1AurL3_t2ljx0ks4ihkh1sW8sYXV0Dhr5zV2ebOPf1udlMlaF09FRazvuCkmlGlt3NutOw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-medical-blue/90 via-medical-blue/40 to-transparent flex flex-col justify-end p-10">
+<div class="max-w-xs">
+<h2 class="text-2xl font-semibold text-white mb-4 leading-tight">Begin Your Diagnostic Journey.</h2>
+<div class="mt-8 space-y-4">
+</div>
+</div>
+</div>
+</div>
+<div class="lg:w-2/3 p-8 lg:p-12 flex flex-col overflow-y-auto">
+<div class="mb-8">
+<h3 class="text-3xl font-semibold text-medical-blue">Patient Registation</h3>
+<p class="text-slate-500 mt-2 font-light text-sm">Please complete all required fields to register for the COPD screening program.</p>
+</div>
+<form class="space-y-8">
+<div>
+<div class="section-label">
+<span class="material-symbols-outlined text-sm">person</span>
+                            Personal Information
+                        </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="patientid">Patient ID</label>
+<input class="form-input-elegant" id="patientid" placeholder="P-000000" required="" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="fullname">Full Name</label>
+<input class="form-input-elegant" id="fullname" placeholder="Johnathan Doe" required="" type="text"/>
+</div>
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="gender">Gender</label>
+<select class="form-input-elegant" id="gender">
+<option disabled="" selected="" value="">Select Gender</option>
+<option value="male">Male</option>
+<option value="female">Female</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="dob">Date of Birth</label>
+<input class="form-input-elegant" id="dob" required="" type="date"/>
+</div>
+<div class="space-y-1 md:col-span-2">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="nic">National Identification Code (NIC)</label>
+<input class="form-input-elegant" id="nic" placeholder="Enter NIC Number" required="" type="text"/>
+</div>
+</div>
+</div>
+<div>
+<div class="section-label">
+<span class="material-symbols-outlined text-sm">contact_page</span>
+                            Contact Details
+                        </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="email">Email Address</label>
+<input class="form-input-elegant" id="email" placeholder="j.doe@example.com" required="" type="email"/>
+</div>
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="phone">Phone Number</label>
+<input class="form-input-elegant" id="phone" placeholder="+1 (555) 000-0000" required="" type="tel"/>
+</div>
+</div>
+</div>
+<div>
+<div class="section-label">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+                            Medical History
+                        </div>
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="diagnosis">Other Diagnosis Details</label>
+<textarea class="form-input-elegant min-h-[100px] resize-none" id="diagnosis" placeholder="Please list any existing medical conditions or previous respiratory issues..."></textarea>
+</div>
+</div>
+<div>
+<div class="section-label">
+<span class="material-symbols-outlined text-sm">lock_person</span>
+                            Security
+                        </div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="password">Create Password</label>
+<input class="form-input-elegant" id="password" placeholder="••••••••••••" required="" type="password"/>
+</div>
+<div class="space-y-1">
+<label class="block text-[11px] font-bold text-slate-500 uppercase tracking-wider" for="confirm_password">Confirm Password</label>
+<input class="form-input-elegant" id="confirm_password" placeholder="••••••••••••" required="" type="password"/>
+</div>
+</div>
+</div>
+<div class="flex items-start gap-3 py-2">
+<input class="mt-1 rounded border-slate-300 text-primary focus:ring-primary h-4 w-4" id="consent" required="" type="checkbox"/>
+<label class="text-[11px] text-slate-500 leading-normal" for="consent">
+                            I consent to the collection and processing of my medical data for diagnostic purposes as outlined in the 
+                            <a class="text-primary font-medium hover:underline" href="#">Patient Privacy Policy</a>.
+                        </label>
+</div>
+<button class="w-full bg-primary hover:bg-blue-700 text-white font-semibold py-4 rounded-md shadow-lg shadow-blue-500/10 transition-all duration-300 flex items-center justify-center gap-3 text-sm tracking-wide" type="submit">
+                        REGISTER PATIENT ACCOUNT
+                        <span class="material-symbols-outlined text-xl">person_add</span>
+</button>
+</form>
+<div class="mt-12 pt-8 border-t border-slate-100 flex flex-wrap items-center justify-center gap-8 grayscale opacity-60">
+</div>
+</div>
+</div>
+</main>
+
+
+</body></html>
