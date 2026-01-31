@@ -1,0 +1,216 @@
+<html class="light" lang="en"><head></head><body class="bg-background-light dark:bg-background-dark text-[#0d121b] dark:text-white font-display">```html
+
+
+
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Recorded Samples Directory - COPD Detection Tool</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+
+
+<div class="flex h-screen overflow-hidden">
+<aside class="w-64 border-r border-[#cfd7e7] dark:border-[#2d3748] bg-white dark:bg-[#1a202c] flex flex-col">
+<div class="p-6 flex items-center gap-3">
+<div class="h-10 w-10 rounded-lg bg-primary flex items-center justify-center text-white">
+<span class="material-symbols-outlined">pulmonology</span>
+</div>
+<div>
+<h1 class="text-[#0d121b] dark:text-white text-base font-bold leading-tight">COPD Detect</h1>
+<p class="text-[#4c669a] dark:text-[#a0aec0] text-xs font-medium">Diagnostic Assistant</p>
+</div>
+</div>
+<nav class="flex-1 px-4 mt-4 space-y-2">
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary">
+<span class="material-symbols-outlined text-[24px]">audio_file</span>
+<p class="text-sm font-semibold">Samples</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] dark:text-[#a0aec0] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[24px]">groups</span>
+<p class="text-sm font-medium">Patients</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] dark:text-[#a0aec0] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[24px]">description</span>
+<p class="text-sm font-medium">Reports</p>
+</div>
+<div class="pt-4 mt-4 border-t border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#4c669a] dark:text-[#a0aec0] hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-[24px]">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</div>
+</div>
+</nav>
+<div class="p-4 border-t border-[#cfd7e7] dark:border-[#2d3748]">
+<div class="flex items-center gap-3 p-2">
+<div class="h-9 w-9 rounded-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAA86patpw9Tdl2u4q_aJKGTTH9p1KmvRUrSzweoPM2uyUQarAk-P539VmK2hebgELCWJnw_Q5JJoPLk0qOdCdsZwOqpTFeXnfJu-ceR5pb2a_GnQDl2P0L9UARiyPa3OLR77S5eNVdhOEBMB2nyuRa6Mg_oaCm0MMAHXm-ry-1MFwcTWFyGAZrdR1Texl6PElKYX79ln8BaHLoGWsqMXjwGJNVxWgMhUy12o7fj9tWW17BG_vKzphU7CkHhYbYs6qOKVDx0A7Dynw')"></div>
+<div class="flex flex-col">
+<p class="text-xs font-bold text-[#0d121b] dark:text-white">Dr. Sarah Chen</p>
+<p class="text-[10px] text-[#4c669a] dark:text-[#a0aec0]">Pulmonologist</p>
+</div>
+</div>
+</div>
+</aside>
+<main class="flex-1 flex flex-col overflow-y-auto bg-background-light dark:bg-background-dark">
+<header class="flex flex-wrap items-center justify-between gap-4 p-8">
+<div>
+<h2 class="text-[#0d121b] dark:text-white text-3xl font-black tracking-tight">Recorded Samples</h2>
+<p class="text-[#4c669a] dark:text-[#a0aec0] text-sm mt-1">Review and analyze lung sound spectrograms</p>
+</div>
+</header>
+<section class="px-8 mb-6">
+<div class="bg-white dark:bg-[#1a202c] p-4 rounded-xl border border-[#cfd7e7] dark:border-[#2d3748] flex flex-wrap items-center gap-4">
+<div class="flex-1 min-w-[300px]">
+<label class="relative block">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#4c669a]">
+<span class="material-symbols-outlined text-[22px]">search</span>
+</span>
+<input class="block w-full bg-[#f8f9fc] dark:bg-[#101622] border-none rounded-lg py-3 pl-10 pr-3 text-sm placeholder-[#4c669a] focus:ring-2 focus:ring-primary/20 focus:outline-none text-[#0d121b] dark:text-white" placeholder="Search by Patient ID, Test ID or Sample ID..." type="text"/>
+</label>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#f8f9fc] dark:bg-[#101622] border border-[#cfd7e7] dark:border-[#2d3748] text-sm font-semibold text-[#0d121b] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+<span>Date Range</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+<button class="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#f8f9fc] dark:bg-[#101622] border border-[#cfd7e7] dark:border-[#2d3748] text-sm font-semibold text-[#0d121b] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+<span>Status</span>
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</button>
+</div>
+</div>
+</section>
+<section class="px-8 pb-10">
+<div class="bg-white dark:bg-[#1a202c] rounded-xl border border-[#cfd7e7] dark:border-[#2d3748] overflow-hidden">
+<div class="@container">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-[#f8f9fc] dark:bg-[#101622] border-bottom border-[#cfd7e7] dark:border-[#2d3748]">
+<th class="px-6 py-4 text-[#0d121b] dark:text-white text-xs font-bold uppercase tracking-wider w-[12%]">Patient ID</th>
+<th class="px-6 py-4 text-[#0d121b] dark:text-white text-xs font-bold uppercase tracking-wider w-[10%]">Test ID</th>
+<th class="px-6 py-4 text-[#0d121b] dark:text-white text-xs font-bold uppercase tracking-wider w-[10%]">Sample ID</th>
+<th class="px-6 py-4 text-[#0d121b] dark:text-white text-xs font-bold uppercase tracking-wider w-[15%]">Recording Date</th>
+<th class="px-6 py-4 text-[#0d121b] dark:text-white text-xs font-bold uppercase tracking-wider w-[15%]">Start Recording</th>
+<th class="px-6 py-4 text-[#0d121b] dark:text-white text-xs font-bold uppercase tracking-wider w-[15%]">End Recording</th>
+<th class="px-6 py-4 text-[#0d121b] dark:text-white text-xs font-bold uppercase tracking-wider w-[13%]">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#cfd7e7] dark:divide-[#2d3748]">
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 text-sm font-bold text-[#0d121b] dark:text-white">P-88291</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">T-102</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">S-401</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">Oct 24, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">09:12:05 AM</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">09:12:20 AM</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                                        Normal
+                                    </span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 text-sm font-bold text-[#0d121b] dark:text-white">P-88292</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">T-105</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">S-402</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">Oct 24, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">10:30:11 AM</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">10:30:31 AM</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
+                                        COPD Detected
+                                    </span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 text-sm font-bold text-[#0d121b] dark:text-white">P-77341</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">T-108</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">S-403</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">Oct 23, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">02:15:42 PM</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">02:15:54 PM</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400">
+                                        Analyzed
+                                    </span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 text-sm font-bold text-[#0d121b] dark:text-white">P-99102</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">T-110</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">S-404</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">Oct 23, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">04:45:00 PM</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">04:45:18 PM</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                                        Pending
+                                    </span>
+</td>
+</tr>
+<tr class="hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors">
+<td class="px-6 py-4 text-sm font-bold text-[#0d121b] dark:text-white">P-66231</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">T-112</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">S-405</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">Oct 22, 2023</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">11:05:10 AM</td>
+<td class="px-6 py-4 text-sm font-medium text-[#4c669a] dark:text-[#a0aec0]">11:05:25 AM</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400">
+                                        Flagged
+                                    </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="px-6 py-4 bg-white dark:bg-[#1a202c] border-t border-[#cfd7e7] dark:border-[#2d3748] flex items-center justify-between">
+<p class="text-sm text-[#4c669a] dark:text-[#a0aec0]">Showing 1 to 5 of 42 samples</p>
+<div class="flex items-center gap-2">
+<button class="p-1.5 rounded-md border border-[#cfd7e7] dark:border-[#2d3748] text-[#4c669a] dark:text-[#a0aec0] hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-md bg-primary text-white text-xs font-bold">1</button>
+<button class="w-8 h-8 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 text-[#4c669a] dark:text-[#a0aec0] text-xs font-bold transition-colors">2</button>
+<button class="w-8 h-8 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 text-[#4c669a] dark:text-[#a0aec0] text-xs font-bold transition-colors">3</button>
+<span class="text-[#4c669a] dark:text-[#a0aec0] px-1">...</span>
+<button class="w-8 h-8 rounded-md hover:bg-gray-50 dark:hover:bg-gray-800 text-[#4c669a] dark:text-[#a0aec0] text-xs font-bold transition-colors">9</button>
+<button class="p-1.5 rounded-md border border-[#cfd7e7] dark:border-[#2d3748] text-[#4c669a] dark:text-[#a0aec0] hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+
+</body></html>
