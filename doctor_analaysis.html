@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html class="light h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Patient Diagnostic Detail - COPD Detection </title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "sidebar": "#111722",
+                        "content": "#f8fafc",
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style type="text/tailwindcss">
+        @layer base {
+            body { @apply font-display text-slate-900 bg-background-light; }
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .nav-item-active {
+            @apply bg-primary text-white;
+        }
+        .nav-item-active .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1;
+        }.gauge-svg {
+            transform: rotate(-90deg);
+        }
+        .gauge-bg {
+            stroke: #e2e8f0;
+        }
+        .gauge-val {
+            stroke: #ef4444;stroke-dasharray: 251.2;
+            stroke-dashoffset: calc(251.2 - (251.2 * 78) / 100);
+            stroke-linecap: round;
+        }.waveform-bar {
+            @apply w-1 rounded-full;
+        }.spectrogram-inferno {
+            background: linear-gradient(to bottom, #fcffa4, #fac228, #f57d15, #ae305c, #51127c, #000004);
+            position: relative;
+        }
+        .spectrogram-overlay {
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(252, 255, 164, 0.8) 0%, transparent 40%),
+                radial-gradient(circle at 50% 40%, rgba(245, 125, 21, 0.6) 0%, transparent 50%),
+                radial-gradient(circle at 80% 90%, rgba(250, 194, 40, 0.7) 0%, transparent 45%),
+                linear-gradient(90deg, rgba(0,0,0,0.4) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.4) 100%);
+            mix-blend-mode: screen;
+        }::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            @apply bg-slate-100;
+        }
+        ::-webkit-scrollbar-thumb {
+            @apply bg-slate-300 rounded-full hover:bg-slate-400;
+        }
+    </style>
+</head>
+<body class="h-screen flex overflow-hidden">
+<aside class="w-64 bg-[var(--sidebar-bg)] flex flex-col shrink-0">
+<div class="p-6 flex items-center gap-3">
+<div class="bg-primary p-2 rounded-lg">
+<span class="material-symbols-outlined text-white text-2xl">pulmonology</span>
+</div>
+<div>
+<h1 class="text-white text-base font-bold leading-tight">COPD Detection</h1>
+<p class="text-[#92a4c9] text-[10px] uppercase tracking-wider font-semibold">Doctor Panel</p>
+</div>
+</div>
+<nav class="flex-1 px-4 py-4 space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">home</span>
+<span class="text-sm font-medium">Home</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+
+<a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">group</span>
+<span class="text-sm font-medium">Patient List</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="#">
+<span class="material-symbols-outlined text-xl">event</span>
+<span class="text-sm font-medium">Appointments</span>
+</a>
+
+</nav>
+<div class="p-4 mt-auto border-t border-slate-800">
+<div class="flex items-center gap-3 p-2">
+<div class="relative">
+</div>
+<button class="mt-4 flex w-full items-center left gap-2 px-3 py-2 text-sm font-semibold text-[#92a4c9] hover:text-white transition-colors">
+<span class="material-symbols-outlined text-lg">logout</span>
+                Logout
+            </button>
+</div>
+</aside>
+<main class="flex-1 ml-64 h-full overflow-y-auto scroll-smooth">
+<div class="max-w-6xl mx-auto p-8 space-y-8">
+<div class="flex flex-col lg:flex-row gap-6">
+<div class="flex-grow bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+<div class="flex items-start justify-between">
+<div class="flex gap-5">
+<div class="size-16 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-200">
+<span class="material-symbols-outlined text-4xl">person</span>
+</div>
+<div>
+<div class="inline-block px-2 py-0.5 rounded bg-blue-50 text-blue-600 text-[10px] font-bold uppercase tracking-wider mb-1">Patient Record</div>
+<h1 class="text-2xl font-black text-slate-900 leading-tight">Johnathan Doe</h1>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-1 mt-2">
+<div class="flex items-center gap-1.5 text-sm text-slate-500 font-medium">
+<span class="text-slate-400 text-xs">ID:</span> #P-1002
+                                    </div>
+<div class="flex items-center gap-1.5 text-sm text-slate-500 font-medium border-l border-slate-200 pl-4">
+<span class="text-slate-400 text-xs">Age:</span> 58
+                                    </div>
+<div class="flex items-center gap-1.5 text-sm text-slate-500 font-medium border-l border-slate-200 pl-4">
+<span class="text-slate-400 text-xs">NIC:</span> 42201-4432190-1
+                                    </div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2">
+<button class="flex items-center justify-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">edit</span>
+                                Edit Demographics
+                            </button>
+<button class="flex items-center justify-center gap-2 px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs font-bold uppercase tracking-wider rounded-lg transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Download Report
+                            </button>
+</div>
+</div>
+</div>
+<div class="w-full lg:w-[400px] bg-white rounded-2xl p-6 shadow-sm border border-slate-200 flex items-center gap-6">
+<div class="relative size-24 flex-shrink-0">
+<svg class="gauge-svg size-24" viewBox="0 0 100 100">
+<circle class="gauge-bg" cx="50" cy="50" fill="transparent" r="40" stroke-width="10"></circle>
+<circle class="gauge-val" cx="50" cy="50" fill="transparent" r="40" stroke-width="10"></circle>
+</svg>
+<div class="absolute inset-0 flex items-center justify-center flex-col">
+<span class="text-xl font-black text-slate-900">78%</span>
+</div>
+</div>
+<div class="flex-1">
+<h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">COPD Diagnostic Summary</h3>
+<div class="text-red-600 font-black text-lg leading-tight mb-3">POSITIVE<br/><span class="text-sm font-bold opacity-80">(High Risk)</span></div>
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="text-[9px] font-bold text-slate-400 w-8">POS</span>
+<div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-red-500" style="width: 78%"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-700">78%</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[9px] font-bold text-slate-400 w-8">NEG</span>
+<div class="flex-1 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-slate-400" style="width: 22%"></div>
+</div>
+<span class="text-[10px] font-bold text-slate-700">22%</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<section>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-slate-400">mic</span>
+<h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Raw Cough Samples</h2>
+<div class="h-px bg-slate-200 flex-1"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-primary/30 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sample 01 - 2.4s</span>
+<span class="material-symbols-outlined text-slate-300 text-lg group-hover:text-primary transition-colors cursor-help">info</span>
+</div>
+<div class="h-20 bg-slate-50 rounded-xl mb-4 flex items-center justify-center gap-1 px-4 overflow-hidden">
+<div class="waveform-bar h-8 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-6 bg-slate-300"></div><div class="waveform-bar h-14 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-16 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-8 bg-slate-300"></div><div class="waveform-bar h-14 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-6 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-16 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-8 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex-1 h-1 bg-slate-200 rounded-full"></div>
+</div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-primary/30 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sample 02 - 1.8s</span>
+<span class="material-symbols-outlined text-slate-300 text-lg group-hover:text-primary transition-colors cursor-help">info</span>
+</div>
+<div class="h-20 bg-slate-50 rounded-xl mb-4 flex items-center justify-center gap-1 px-4 overflow-hidden">
+<div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-6 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-16 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-8 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-14 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-6 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-16 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-8 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-6 bg-slate-300"></div>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex-1 h-1 bg-slate-200 rounded-full"></div>
+</div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-primary/30 transition-all group">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Sample 03 - 3.1s</span>
+<span class="material-symbols-outlined text-slate-300 text-lg group-hover:text-primary transition-colors cursor-help">info</span>
+</div>
+<div class="h-20 bg-slate-50 rounded-xl mb-4 flex items-center justify-center gap-1 px-4 overflow-hidden">
+<div class="waveform-bar h-14 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-6 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-16 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-8 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-6 bg-slate-300"></div><div class="waveform-bar h-14 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div><div class="waveform-bar h-16 bg-slate-300"></div><div class="waveform-bar h-12 bg-slate-300"></div><div class="waveform-bar h-8 bg-slate-300"></div><div class="waveform-bar h-14 bg-slate-300"></div><div class="waveform-bar h-10 bg-slate-300"></div>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-slate-900 text-white flex items-center justify-center hover:bg-slate-700 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex-1 h-1 bg-slate-200 rounded-full"></div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-slate-400">filter_list</span>
+<h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Preprocessed Samples (Noise Reduction)</h2>
+<div class="h-px bg-slate-200 flex-1"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Filtered 01 (Band-pass)</span>
+<div class="bg-primary/5 px-2 py-0.5 rounded text-[10px] text-primary font-bold">SNR: 18.5 dB</div>
+</div>
+<div class="h-20 bg-slate-900 rounded-xl mb-4 flex items-center justify-center gap-0.5 px-4 overflow-hidden">
+<div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-8 bg-primary"></div><div class="waveform-bar h-2 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-16 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-14 bg-primary"></div><div class="waveform-bar h-8 bg-primary"></div><div class="waveform-bar h-2 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-16 bg-primary"></div><div class="waveform-bar h-8 bg-primary"></div><div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-18 bg-primary"></div><div class="waveform-bar h-8 bg-primary"></div><div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-14 bg-primary"></div>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex-1 h-1 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary/30" style="width: 45%"></div>
+</div>
+</div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Filtered 02 (Z-Score)</span>
+<div class="bg-primary/5 px-2 py-0.5 rounded text-[10px] text-primary font-bold">SNR: 19.2 dB</div>
+</div>
+<div class="h-20 bg-slate-900 rounded-xl mb-4 flex items-center justify-center gap-0.5 px-4 overflow-hidden">
+<div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-14 bg-primary"></div><div class="waveform-bar h-8 bg-primary"></div><div class="waveform-bar h-18 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-16 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-18 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-14 bg-primary"></div><div class="waveform-bar h-20 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-16 bg-primary"></div>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex-1 h-1 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary/30" style="width: 30%"></div>
+</div>
+</div>
+</div>
+<div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<span class="text-[10px] font-bold text-primary uppercase tracking-widest">Filtered 03 (Adaptive)</span>
+<div class="bg-primary/5 px-2 py-0.5 rounded text-[10px] text-primary font-bold">SNR: 17.8 dB</div>
+</div>
+<div class="h-20 bg-slate-900 rounded-xl mb-4 flex items-center justify-center gap-0.5 px-4 overflow-hidden">
+<div class="waveform-bar h-8 bg-primary"></div><div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-14 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-18 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-16 bg-primary"></div><div class="waveform-bar h-10 bg-primary"></div><div class="waveform-bar h-4 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-18 bg-primary"></div><div class="waveform-bar h-8 bg-primary"></div><div class="waveform-bar h-6 bg-primary"></div><div class="waveform-bar h-14 bg-primary"></div><div class="waveform-bar h-20 bg-primary"></div><div class="waveform-bar h-12 bg-primary"></div><div class="waveform-bar h-8 bg-primary"></div>
+</div>
+<div class="flex items-center gap-3">
+<button class="size-10 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 transition-colors">
+<span class="material-symbols-outlined">play_arrow</span>
+</button>
+<div class="flex-1 h-1 bg-slate-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary/30" style="width: 60%"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section>
+<div class="flex items-center gap-3 mb-4">
+<span class="material-symbols-outlined text-slate-400">analytics</span>
+<h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Generated Mel-Spectrograms</h2>
+<div class="h-px bg-slate-200 flex-1"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-md group">
+<div class="relative h-56 spectrogram-inferno">
+<div class="absolute inset-0 spectrogram-overlay"></div>
+<div class="absolute left-2 top-2 bottom-6 flex flex-col justify-between text-[8px] font-mono text-white/60 select-none">
+<span>8000 Hz</span><span>4000 Hz</span><span>2000 Hz</span><span>1000 Hz</span><span>0 Hz</span>
+</div>
+<div class="absolute bottom-1 left-12 right-4 flex justify-between text-[8px] font-mono text-white/60 select-none">
+<span>0s</span><span>0.6s</span><span>1.2s</span><span>1.8s</span><span>2.4s</span>
+</div>
+<div class="absolute inset-0 opacity-10 pointer-events-none border-l-2 border-b-2 border-white/40 ml-10 mb-6 mr-4 mt-2 grid grid-cols-4 grid-rows-4">
+<div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-t border-white"></div>
+<div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-t border-white"></div>
+<div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-t border-white"></div>
+<div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-r border-t border-white"></div><div class="border-t border-white"></div>
+</div>
+</div>
+<div class="p-4 bg-slate-900 flex items-center justify-between">
+<div>
+<h4 class="text-xs font-bold text-white uppercase">Segment A Analysis</h4>
+<p class="text-[10px] text-slate-400">High frequency density detected</p>
+</div>
+<button class="p-2 rounded bg-white/10 text-white hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-sm">open_in_full</span>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-md group">
+<div class="relative h-56 spectrogram-inferno">
+<div class="absolute inset-0 spectrogram-overlay opacity-80" style="filter: hue-rotate(45deg);"></div>
+<div class="absolute left-2 top-2 bottom-6 flex flex-col justify-between text-[8px] font-mono text-white/60 select-none">
+<span>8000 Hz</span><span>4000 Hz</span><span>2000 Hz</span><span>1000 Hz</span><span>0 Hz</span>
+</div>
+<div class="absolute bottom-1 left-12 right-4 flex justify-between text-[8px] font-mono text-white/60 select-none">
+<span>0s</span><span>0.6s</span><span>1.2s</span><span>1.8s</span><span>2.4s</span>
+</div>
+</div>
+<div class="p-4 bg-slate-900 flex items-center justify-between">
+<div>
+<h4 class="text-xs font-bold text-white uppercase">Segment B Analysis</h4>
+<p class="text-[10px] text-slate-400">Mid-range wheezing patterns</p>
+</div>
+<button class="p-2 rounded bg-white/10 text-white hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-sm">open_in_full</span>
+</button>
+</div>
+</div>
+<div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-md group">
+<div class="relative h-56 spectrogram-inferno">
+<div class="absolute inset-0 spectrogram-overlay opacity-90" style="filter: saturate(1.5);"></div>
+<div class="absolute left-2 top-2 bottom-6 flex flex-col justify-between text-[8px] font-mono text-white/60 select-none">
+<span>8000 Hz</span><span>4000 Hz</span><span>2000 Hz</span><span>1000 Hz</span><span>0 Hz</span>
+</div>
+<div class="absolute bottom-1 left-12 right-4 flex justify-between text-[8px] font-mono text-white/60 select-none">
+<span>0s</span><span>0.6s</span><span>1.2s</span><span>1.8s</span><span>2.4s</span>
+</div>
+</div>
+<div class="p-4 bg-slate-900 flex items-center justify-between">
+<div>
+<h4 class="text-xs font-bold text-white uppercase">Segment C Analysis</h4>
+<p class="text-[10px] text-slate-400">Clear crackle indicators</p>
+</div>
+<button class="p-2 rounded bg-white/10 text-white hover:bg-white/20 transition-all">
+<span class="material-symbols-outlined text-sm">open_in_full</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<section class="pb-12">
+<div class="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-primary">notes</span>
+<h2 class="text-xs font-bold text-slate-500 uppercase tracking-widest">Clinical Comments</h2>
+</div>
+<textarea class="w-full h-40 p-6 rounded-xl bg-slate-50 border-slate-200 text-slate-800 placeholder-slate-400 focus:ring-primary focus:border-primary transition-all resize-none mb-6" placeholder="Type your clinical findings or observation notes here..."></textarea>
+<div class="flex items-center justify-between">
+<p class="text-[11px] text-slate-400 italic flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">info</span>
+                            Notes are encrypted and stored in patient history.
+                        </p>
+<button class="px-10 py-3 bg-primary text-white font-black text-xs uppercase tracking-widest rounded-xl hover:bg-primary/90 shadow-lg shadow-primary/20 transition-all active:scale-95">
+                            Save Diagnostic Note
+                        </button>
+</div>
+</div>
+</section>
+</div>
+</main>
+
+</body></html>

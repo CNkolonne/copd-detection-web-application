@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Sequential Cough Audio Recording - COPD Detection AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style type="text/tailwindcss">
+        :root {
+            --primary: #135bec;
+            --sidebar-bg: #111722;
+            --content-bg: #f8fafc;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .recording-active {
+            animation: pulse-red 1.5s infinite;
+        }
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+    </style>
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "sidebar": "#111722",
+                        "content": "#f8fafc",
+                    },
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-content text-slate-900 min-h-screen flex flex-col">
+
+<div class="flex min-h-screen overflow-hidden">
+    <aside class="w-64 bg-sidebar flex flex-col shrink-0">
+        <div class="p-6 flex items-center gap-3">
+            <div class="bg-primary p-2 rounded-lg">
+                <span class="material-symbols-outlined text-white text-2xl">pulmonology</span>
+            </div>
+            <div>
+                <h1 class="text-white text-base font-bold leading-tight">COPD Detection</h1>
+                <p class="text-[#92a4c9] text-[10px] uppercase tracking-wider font-semibold">ASSISTANT PANEL</p>
+            </div>
+        </div>
+        <nav class="flex-1 px-4 py-4 space-y-1">
+            <a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="home_page.html">
+                <span class="material-symbols-outlined text-xl">home</span>
+                <span class="text-sm font-medium">Home</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="assistant_dashboard_samples.html">
+                <span class="material-symbols-outlined text-xl">mic</span>
+                <span class="text-sm font-medium">Samples</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="voicerecord.html">
+                <span class="material-symbols-outlined text-xl">mic_external_on</span>
+                <span class="text-sm font-medium">Recording</span>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 text-[#92a4c9] hover:bg-white/5 hover:text-white rounded-lg transition-colors" href="help.html">
+                <span class="material-symbols-outlined text-xl">help</span>
+                <span class="text-sm font-medium">Help</span>
+            </a>
+        </nav>
+        
+        <div class="p-4 mt-auto border-t border-slate-800">
+            <a href="api/logout.php" class="flex items-center gap-2 px-3 py-2 text-sm font-semibold text-[#92a4c9] hover:text-white transition-colors">
+                <span class="material-symbols-outlined text-lg">logout</span>
+                Logout
+            </a>
+        </div>
+    </aside>
+
+    <div class="flex-1 flex flex-col">
+        <header class="h-16 border-b border-slate-200 bg-white flex items-center px-8">
+            
+        </header>
+
+        <main class="flex-1 p-6 md:p-12 flex flex-col items-center">
+            <div class="w-full max-w-4xl">
+                <div class="mb-10 flex items-center justify-between relative px-2 max-w-2xl mx-auto">
+                    <div class="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 -z-10 -translate-y-1/2"></div>
+                    <div id="step1" class="flex flex-col items-center gap-2">
+                        <div class="step-icon w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-white">1</div>
+                        <span class="text-xs font-bold">Sample 1</span>
+                    </div>
+                    <div id="step2" class="flex flex-col items-center gap-2">
+                        <div class="step-icon w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center ring-4 ring-white">2</div>
+                        <span class="text-xs font-medium">Sample 2</span>
+                    </div>
+                    <div id="step3" class="flex flex-col items-center gap-2">
+                        <div class="step-icon w-10 h-10 rounded-full bg-slate-200 text-slate-500 flex items-center justify-center ring-4 ring-white">3</div>
+                        <span class="text-xs font-medium">Sample 3</span>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-slate-200 shadow-xl rounded-2xl overflow-hidden p-8 md:p-12">
+                    <div class="text-center mb-10">
+                        <h1 class="text-2xl font-bold text-slate-800 mb-2">Sequential Cough Recording</h1>
+                        <p id="instruction" class="text-slate-500">Click the microphone to record <b>Sample 1</b></p>
+                    </div>
+
+                    <div class="flex flex-col items-center py-10 bg-slate-50 rounded-2xl border border-dashed border-slate-300">
+                        <canvas id="waveform" width="500" height="80" class="mb-6"></canvas>
+                        
+                        <div id="recordingStatus" class="mb-6 flex items-center gap-2 text-primary font-bold text-sm uppercase tracking-widest invisible">
+                            <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span> Recording In Progress
+                        </div>
+
+                        <button id="recordBtn" class="w-32 h-32 bg-primary rounded-full flex items-center justify-center text-white shadow-lg transition-transform active:scale-95 hover:bg-blue-700">
+                            <span id="micIcon" class="material-symbols-outlined text-5xl">mic</span>
+                        </button>
+                        <p class="mt-4 font-semibold text-slate-600">Press to Start/Stop</p>
+                    </div>
+
+                    <div class="mt-10">
+                        <div id="recordingsList" class="space-y-3 mb-8"></div>
+                        
+                        <div class="flex justify-center">
+                            <button id="uploadAllBtn" class="hidden px-10 py-4 bg-green-600 text-white rounded-xl font-bold shadow-lg hover:bg-green-700 transition-all transform hover:-translate-y-1">
+                                ⬆ UPLOAD ALL SAMPLES
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script>
+let mediaRecorder;
+let audioChunks = [];
+let audioContext;
+let analyser;
+let dataArray;
+let currentSample = 1;
+let recordedBlobs = [];
+let isRecording = false;
+
+// පියවර 1: Noise Threshold එක හඳුන්වා දීම
+const NOISE_THRESHOLD = 45; 
+
+const recordBtn = document.getElementById("recordBtn");
+const statusText = document.getElementById("recordingStatus");
+const instruction = document.getElementById("instruction");
+const recordingsList = document.getElementById("recordingsList");
+const uploadBtn = document.getElementById("uploadAllBtn");
+
+// Initialize Microphone and Waveform Analyser
+navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
+    mediaRecorder = new MediaRecorder(stream);
+    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    analyser = audioContext.createAnalyser();
+    const source = audioContext.createMediaStreamSource(stream);
+    source.connect(analyser);
+    analyser.fftSize = 256;
+    dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+    mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+    mediaRecorder.onstop = () => {
+        const blob = new Blob(audioChunks, { type: "audio/webm" });
+        audioChunks = [];
+        handleSampleCollection(blob);
+    };
+    drawWave();
+}).catch(err => {
+    Swal.fire('Error', 'Microphone access denied!', 'error');
+});
+
+recordBtn.addEventListener("click", () => {
+    if (!isRecording) {
+        startRecording();
+    } else {
+        stopRecording();
+    }
+});
+
+// පියවර 2: Noise පරීක්ෂාව සහිතව Recording ඇරඹීම
+function startRecording() {
+    // Volume එක පරීක්ෂා කිරීම
+    analyser.getByteFrequencyData(dataArray);
+    let averageVolume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+
+    if (averageVolume > NOISE_THRESHOLD) {
+        Swal.fire({
+            title: 'High Background Noise!',
+            text: 'The environment is too noisy for an accurate recording. Please move to a quieter location and try again.',
+            icon: 'warning',
+            confirmButtonColor: '#135bec',
+            confirmButtonText: 'Understood'
+        });
+        return; // මෙතනින් නතර වේ
+    }
+
+    mediaRecorder.start();
+    isRecording = true;
+    recordBtn.classList.add("recording-active", "bg-red-500");
+    document.getElementById("micIcon").innerText = "stop";
+    statusText.classList.remove("invisible");
+}
+
+function stopRecording() {
+    mediaRecorder.stop();
+    isRecording = false;
+    recordBtn.classList.remove("recording-active", "bg-red-500");
+    document.getElementById("micIcon").innerText = "mic";
+    statusText.classList.add("invisible");
+}
+
+function handleSampleCollection(blob) {
+    recordedBlobs.push(blob);
+    
+    Swal.fire({
+        title: `Sample ${currentSample} Collected!`,
+        text: "Audio captured successfully.",
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false
+    });
+
+    const url = URL.createObjectURL(blob);
+    const div = document.createElement("div");
+    div.className = "flex items-center justify-between p-4 bg-blue-50 border border-blue-100 rounded-lg";
+    div.innerHTML = `
+        <span class="font-bold text-blue-800">Sample ${currentSample}</span>
+        <audio src="${url}" controls class="h-8"></audio>
+    `;
+    recordingsList.appendChild(div);
+
+    updateStepper();
+
+    if (currentSample < 3) {
+        currentSample++;
+        instruction.innerHTML = `Click the microphone to record <b>Sample ${currentSample}</b>`;
+    } else {
+        finishCollection();
+    }
+}
+
+function updateStepper() {
+    const currentStepIcon = document.querySelector(`#step${currentSample} .step-icon`);
+    currentStepIcon.classList.replace("bg-primary", "bg-green-500");
+    currentStepIcon.innerHTML = "check";
+
+    const nextStep = document.getElementById(`step${currentSample + 1}`);
+    if (nextStep) {
+        const nextIcon = nextStep.querySelector(".step-icon");
+        nextIcon.classList.replace("bg-slate-200", "bg-primary");
+        nextIcon.classList.replace("text-slate-500", "text-white");
+    }
+}
+
+function finishCollection() {
+    recordBtn.disabled = true;
+    recordBtn.classList.add("opacity-20", "cursor-not-allowed");
+    instruction.innerHTML = "<b class='text-green-600'>✓ All 3 Samples Collected!</b>";
+    uploadBtn.classList.remove("hidden");
+    
+    Swal.fire({
+        title: 'Ready to Upload',
+        text: 'All 3 cough samples have been collected. Please proceed to upload.',
+        icon: 'info',
+        confirmButtonText: 'Great!'
+    });
+}
+
+// --- Upload Logic with Database Data ---
+uploadBtn.addEventListener("click", async () => {
+    uploadBtn.disabled = true;
+    uploadBtn.innerText = "Processing...";
+    
+    const patientID = "P-1001"; 
+    const testID = "T-" + Date.now();
+
+    try {
+        for (let i = 0; i < recordedBlobs.length; i++) {
+            const formData = new FormData();
+            formData.append("audio", recordedBlobs[i], `sample_${i + 1}.webm`);
+            formData.append("sample_no", i + 1);
+            formData.append("patient_id", patientID);
+            formData.append("test_id", testID);
+
+            const response = await fetch("upload.php", { 
+                method: "POST", 
+                body: formData 
+            });
+
+            if (!response.ok) throw new Error("Upload failed for sample " + (i+1));
+            
+            const result = await response.json();
+            console.log("Server Response:", result.message);
+        }
+
+        Swal.fire('Success!', 'All samples saved to server and database.', 'success').then(() => {
+            window.location.href = "assistant_dashboard_samples.html"; 
+        });
+    } catch (err) {
+        console.error(err);
+        Swal.fire('Error', 'Something went wrong during upload. Check console for details.', 'error');
+        uploadBtn.disabled = false;
+        uploadBtn.innerText = "⬆ UPLOAD ALL SAMPLES";
+    }
+});
+
+function drawWave() {
+    requestAnimationFrame(drawWave);
+    const canvas = document.getElementById("waveform");
+    const ctx = canvas.getContext("2d");
+    analyser.getByteTimeDomainData(dataArray);
+
+    ctx.fillStyle = "#f8fafc";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = isRecording ? "#ef4444" : "#135bec";
+    ctx.beginPath();
+
+    const sliceWidth = canvas.width / dataArray.length;
+    let x = 0;
+    for (let i = 0; i < dataArray.length; i++) {
+        const v = dataArray[i] / 128.0;
+        const y = v * canvas.height / 2;
+        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+        x += sliceWidth;
+    }
+    ctx.stroke();
+}
+</script>
+</body>
+</html>
