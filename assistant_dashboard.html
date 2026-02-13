@@ -146,41 +146,39 @@
 </main>
 
 </div>
-   <!--welcome name eka update wenna-->
+
 <script>
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. LocalStorage එකෙන් සේව් කරපු user_data ගන්නවා
+  
     const userData = localStorage.getItem('user_data');
 
     if (userData) {
         const user = JSON.parse(userData);
 
-        // --- Header එකේ නම Update කිරීම ---
+      
         const displayElement = document.getElementById('assistantDisplayName');
         if (displayElement && user.name) {
             displayElement.innerText = "Welcome, " + user.name;
         }
 
-        // --- Profile Card එකේ විස්තර Update කිරීම ---
-        // මෙහි ඇති Key names (user.staff_id වැනි) ඔයාගේ Database එකේ ඇති අකුරු වලට සමාන විය යුතුයි.
-        
+      
         setElementText('profileName', user.name);
         setElementText('profileStaffId', user.staff_id);
         setElementText('profileEmail', user.email);
-        setElementText('profilePhone', user.phone_number);      // Database එකේ නම phone_number නම් එය දාන්න
-        setElementText('profileNIC', user.nic);          // Database එකේ නම NIC_number නම් එය දාන්න
-        setElementText('profileWorkPlace', user.place_of_work); // Database එකේ නම place_of_work නම් එය දාන්න
+        setElementText('profilePhone', user.phone_number);      
+        setElementText('profileNIC', user.nic);          
+        setElementText('profileWorkPlace', user.place_of_work); 
         
 
 
     }  
     else {
-        // ලොග් වෙලා නැත්නම් ආපහු ලොගින් පේජ් එකට යවනවා
+       
         window.location.href = 'assistant_login.html';
     }
 
-    // දත්ත පෙන්වීමට උදව් වන පොදු function එකක්
+   
     function setElementText(id, value) {
         const element = document.getElementById(id);
         if (element) {
@@ -190,4 +188,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+
 </body></html>
